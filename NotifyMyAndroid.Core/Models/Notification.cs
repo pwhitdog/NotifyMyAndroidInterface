@@ -15,6 +15,6 @@ namespace NotifyAndroidAPI.Models
         public int? Priority { get; set; }
         public int? DeveloperKey { get; set; }
         public string UrlInNotification { get; set; }
-        public bool HtmlAdded { get; set; }
+        public bool? HtmlAdded { get; set; }
     }
 }

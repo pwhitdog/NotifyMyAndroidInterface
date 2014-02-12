@@ -57,7 +57,7 @@ namespace NotifyMyAndroid.Core.Services
             {
                 _validityAnswer.Remaining = node.Attributes.GetNamedItem("remaining").InnerText;
                 _validityAnswer.ResetTimer = node.Attributes.GetNamedItem("resettimer").InnerText;
-            }//
+            }
 
             return _validityAnswer;
         }
