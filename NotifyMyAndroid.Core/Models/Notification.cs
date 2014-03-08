@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-
-namespace NotifyAndroidAPI.Models
+﻿namespace NotifyAndroidAPI.Models
 {
     public class Notification
     {

@@ -3,25 +3,32 @@
 }
 
 <h2>Verification</h2>
-@using (Ajax.BeginForm("Verify", "Notification", null, new AjaxOptions{HttpMethod = "Get", OnSuccess = "foo"}))
+@using (Ajax.BeginForm("Verify", "Notification", null, new AjaxOptions {HttpMethod = "Get", OnSuccess = "foo"}))
 {
-    <label>Api Key: </label><input type="text" name="apikey" />
+    <label>Api Key: </label>
+    <input type="text" name="apikey" />
     <input type="submit" value="Verify" class="btn-primary" />
 }
 
 <h2>Post Notification</h2>
 @using (Ajax.BeginForm("Post", "Notification", new AjaxOptions()))
 {
-    <label>Api Key: </label><input type="text" name="apikey" />
-    <label>Application Name: </label><input type="text" name="applicationName" />
-    <label>Description: </label><input type="text" name="description" />
-    <label>Event: </label><input type="text" name="eventHappening" />
-    <label>Priority: </label><input type="number" name="apikey" />
-    <label>Developer Key: </label><input type="number" name="developerkey" />
-    <label>Url in Notification: </label><input type="text" name="urlnotification" />
-    <label>Is Html used in notification: </label><input type="checkbox" name="htmlAdded" />
+    <label>Api Key: </label>
+    <input type="text" name="apikey" />
+    <label>Application Name: </label>
+    <input type="text" name="applicationName" />
+    <label>Description: </label>
+    <input type="text" name="description" />
+    <label>Event: </label>
+    <input type="text" name="eventHappening" />
+    <label>Priority: </label>
+    <input type="number" name="apikey" />
+    <label>Developer Key: </label>
+    <input type="number" name="developerkey" />
+    <label>Url in Notification: </label>
+    <input type="text" name="urlnotification" />
+    <label>Is Html used in notification: </label>
+    <input type="checkbox" name="htmlAdded" />
 
     <input type="submit" value="Verify" class="btn-primary" />
-
 }
-

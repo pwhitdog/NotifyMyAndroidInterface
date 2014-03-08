@@ -9,10 +9,13 @@ namespace NotifyAndroidAPI.Models
     {
         [DataMember]
         public string Code { get; set; }
+
         [DataMember]
         public string Error { get; set; }
+
         [DataMember]
         public string ResetTimer { get; set; }
+
         [DataMember]
         public string Remaining { get; set; }
     }

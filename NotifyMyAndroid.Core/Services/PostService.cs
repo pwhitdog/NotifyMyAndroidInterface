@@ -1,47 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Specialized;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
 using NotifyAndroidAPI.Models;
 
 namespace NotifyMyAndroid.Core.Services
 {
     public class PostService : IPostService
     {
-        private const string Url = "https://www.notifymyandroid.com/publicapi/notify?";
+        private const string Url = "https://www.notifymyandroid.com/publicapi/notify";
+        private readonly NameValueCollection data = new NameValueCollection();
 
-        public bool SendMessage(Notification notification)
+        public XmlDocument SendMessage(Notification notification)
         {
-            var fullUrl = GetFullUrl(notification);
+            string responseString;
+            var xmlDoc = new XmlDocument();
 
-            var request = WebRequest.Create(fullUrl) as HttpWebRequest;
-            var response = request.GetResponse() as HttpWebResponse;
+            SetData(notification);
 
-            return true;
+            using (var wb = new WebClient())
+            {
+                byte[] response = wb.UploadValues(Url, "POST", data);
+
+                responseString = Encoding.Default.GetString(response);
+                xmlDoc.LoadXml(responseString);
+            }
+            ;
+
+
+            return (xmlDoc);
         }
 
-        private string GetFullUrl(Notification notification)
+        private void SetData(Notification notification)
         {
-            var apiKey = "apikey=" + notification.Apikey;
-            var appName = "application=" + notification.ApplicationName;
-            var eventName = "event=" + notification.Event;
-            var description = "description=" + notification.Description;
-            var priority = "priority=" + notification.Priority;
-            var developerKey = notification.DeveloperKey != 0 ? "developerkey=" + notification.DeveloperKey : "";
-            var urlNotification = notification.UrlInNotification != "" ? "url=" + notification.UrlInNotification : "";
-            var htmlAdded = notification.HtmlAdded == true ? "content-type=text/html" : "";
-
-
-            return Url + apiKey + "&" + appName + "&" + eventName + "&" + description + "&" + priority + "&"
-                          + developerKey + "&" + urlNotification + "&" + htmlAdded;
-            
+            data["apikey"] = notification.Apikey;
+            data["application"] = notification.ApplicationName;
+            data["event"] = notification.Event;
+            data["description"] = notification.Description;
+            data["priority"] = notification.Priority.ToString();
+            if (notification.DeveloperKey != 0)
+            {
+                data["developerkey"] = notification.DeveloperKey.ToString();
+            }
+            if (notification.UrlInNotification != "")
+            {
+                data["url"] = notification.UrlInNotification;
+            }
+            if (notification.HtmlAdded != false)
+            {
+                data["content-type"] = notification.HtmlAdded.ToString();
+            }
         }
     }
 
     public interface IPostService
     {
-        bool SendMessage(Notification notification);
+        XmlDocument SendMessage(Notification notification);
     }
 }
